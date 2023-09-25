@@ -1,27 +1,16 @@
 const {PrismaClient} = require('@prisma/client');
 const prisma = new PrismaClient();
+const products = require("./products")
 
 
 
 async function main() {
-    // for (let i = 1; i <= 2; i++) {
-    //   const user = await prisma.user.create({
-    //     data: {
-    //       email: `email${i}`,
-    //       password: `password${i}`,
-    //     },
-    //   });
-      for (let j = 1; j <= 4; j++) {
-      const product = await prisma.product.create({
-        data: {
-          name: `name${j}`,
-          price: 100,
-          details: `details${j}`
-        },
+    for(let product of products) {
+      await prisma.product.create({
+        data: product
       });
     }
 }
-// }
 
 main().catch(e => {
     console.log(e);

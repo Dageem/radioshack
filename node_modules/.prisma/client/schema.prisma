@@ -16,6 +16,7 @@ model Product {
   id        Int        @id @default(autoincrement())
   name      String
   price     Decimal?
+  imageUrl  String? //Image URL
   details   String
   cartItems CartItem[]
 }
