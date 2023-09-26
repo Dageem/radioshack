@@ -1,29 +1,42 @@
-import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 
-// Define a service using a base URL and expected endpoints
 export const api = createApi({
-    reducerPath: 'api',
-    baseQuery: fetchBaseQuery({baseUrl: "localhost:3000"}),
-    endpoints: (builder) => ({
+  reducerPath: 'api',
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000' }),
+  endpoints: (builder) => ({
+    getProducts: builder.query({
+      query: () => '/api/products',
+    }),
+    getCartItems: builder.query({
+      query: () => '/api/cartitems',
+    }),
+    addCartItem: builder.mutation({
+      query: (newItem) => ({
+        url: '/api/cartitems',
+        method: 'POST',
+        body: newItem,
+      }),
+    }),
+    deleteCartItem: builder.mutation({
+      query: (id) => ({
+        url: `/api/cartitems/${id}`,
+        method: 'DELETE',
+      }),
+
+ 
         getProducts: builder.query({
             query: () => "/api/products",
           }),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+          getProductsById: builder.query({
+            query: (id) => '/api/products'+id,
+          }),
+          getCategoryByName: builder.query({
+            query: (name) => `/api/category/${name}`,
+          }),
+          getCategory: builder.query({
+            query: () => "/api/category",
+          }),
 
         getOrders : builder.query({
             query: ()=> 'api/orders'
@@ -46,12 +59,21 @@ export const api = createApi({
         }),
 
 
-
-
-
-
-
     }),
-})
+  }),
+});
 
-export const {useGetProductsQuery, useGetOrdersQuery, useGetOrderByIdQuery, useDeleteOrderMutation, useAddOrderMutation }=api
+
+export const {
+  useGetProductsQuery,
+  useGetCartItemsQuery,
+  useAddCartItemMutation,
+  useDeleteCartItemMutation,
+  useGetProductsByIdQuery,
+  useGetCategoryByNameQuery,
+  useGetCategoryQuery,
+  useGetOrdersQuery, 
+  useGetOrderByIdQuery, 
+  useDeleteOrderMutation, 
+  useAddOrderMutation
+} = api;
