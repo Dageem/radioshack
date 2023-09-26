@@ -10,7 +10,48 @@ export const api = createApi({
             query: () => "/api/products",
           }),
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        getOrders : builder.query({
+            query: ()=> 'api/orders'
+        }),
+        getOrderById : builder.query({
+            query: (id)=> 'api/orders/'+id,
+        }),
+        deleteOrder: builder.mutation({
+            query: (id)=>({
+                url:'api/orders/'+id,
+                method:"DELETE"
+            })
+        }),
+        addOrder: builder.mutation({
+            query: (body)=>({
+                url:'api/orders',
+                method:"POST",
+                body:body
+            })
+        }),
+
+
+
+
+
+
+
     }),
 })
 
-export const {useGetProductsQuery}=api
+export const {useGetProductsQuery, useGetOrdersQuery, useGetOrderByIdQuery, useDeleteOrderMutation, useAddOrderMutation }=api
