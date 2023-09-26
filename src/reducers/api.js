@@ -23,13 +23,33 @@ export const api = createApi({
         url: `/api/cartitems/${id}`,
         method: 'DELETE',
       }),
+
+ 
+        getProducts: builder.query({
+            query: () => "/api/products",
+          }),
+          getProductsById: builder.query({
+            query: (id) => '/api/products'+id,
+          }),
+          getCategoryByName: builder.query({
+            query: (name) => `/api/category/${name}`,
+          }),
+          getCategory: builder.query({
+            query: () => "/api/category",
+          }),
+
+
     }),
   }),
 });
+
 
 export const {
   useGetProductsQuery,
   useGetCartItemsQuery,
   useAddCartItemMutation,
-  useDeleteCartItemMutation,
+  useDeleteCartItemMutation,useGetProductsByIdQuery,
+  useGetCategoryByNameQuery,
+  useGetCategoryQuery
 } = api;
+
