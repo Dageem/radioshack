@@ -38,6 +38,26 @@ export const api = createApi({
             query: () => "/api/category",
           }),
 
+        getOrders : builder.query({
+            query: ()=> 'api/orders'
+        }),
+        getOrderById : builder.query({
+            query: (id)=> 'api/orders/'+id,
+        }),
+        deleteOrder: builder.mutation({
+            query: (id)=>({
+                url:'api/orders/'+id,
+                method:"DELETE"
+            })
+        }),
+        addOrder: builder.mutation({
+            query: (body)=>({
+                url:'api/orders',
+                method:"POST",
+                body:body
+            })
+        }),
+
 
     }),
   }),
@@ -48,8 +68,12 @@ export const {
   useGetProductsQuery,
   useGetCartItemsQuery,
   useAddCartItemMutation,
-  useDeleteCartItemMutation,useGetProductsByIdQuery,
+  useDeleteCartItemMutation,
+  useGetProductsByIdQuery,
   useGetCategoryByNameQuery,
-  useGetCategoryQuery
+  useGetCategoryQuery,
+  useGetOrdersQuery, 
+  useGetOrderByIdQuery, 
+  useDeleteOrderMutation, 
+  useAddOrderMutation
 } = api;
-
