@@ -23,8 +23,6 @@ export const api = createApi({
         url: `/api/cartitems/${id}`,
         method: 'DELETE',
       }),
-
- 
         getProducts: builder.query({
             query: () => "/api/products",
           }),
@@ -62,7 +60,6 @@ export const api = createApi({
     }),
   }),
 });
-
 
 export const {
   useGetProductsQuery,
