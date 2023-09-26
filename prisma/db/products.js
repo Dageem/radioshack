@@ -1,55 +1,67 @@
 const products = [
-    {
-      name: "Laptop XYZ",
-      price: 1000.99,
-      details: "A powerful laptop with a sleek design."
-    },
-    {
-      name: "Smartphone ABC",
-      price: 699.99,
-      details: "A smartphone with a long-lasting battery."
-    },
-    {
-      name: "Bluetooth Headphones",
-      price: 159.49,
-      details: "Wireless bluetooth headphones with noise cancellation."
-    },
-    {
-      name: "Gaming Console",
-      price: 399.00,
-      details: "A popular gaming console with high-quality graphics."
-    },
-    {
-      name: "4K TV",
-      price: 1299.99,
-      details: "A 4K Smart TV with HDR support."
-    },
-    {
-      name: "Fitness Tracker",
-      price: 129.00,
-      details: "A fitness tracker with heart rate monitor."
-    },
-    {
-      name: "Smart Watch",
-      price: 249.99,
-      details: "A smart watch with multiple features and customizable watch faces."
-    },
-    {
-      name: "External Hard Drive",
-      price: 89.99,
-      details: "A 2TB external hard drive for extra storage."
-    },
-    {
-      name: "Digital Camera",
-      price: 799.99,
-      details: "A digital camera with high resolution and zoom capability."
-    },
-    {
-      name: "E-Book Reader",
+  // Earbuds Products
+  {
+      name: "AirSound Pro",
+      price: 129.99,
+      details: "Wireless earbuds with crystal-clear sound, advanced noise-cancellation, and a comfortable fit.",
+      category: { create: { name: "Earbuds" } }
+  },
+  {
+      name: "BassBeats Budz",
+      price: 99.99,
+      details: "Compact earbuds featuring powerful bass and seamless connectivity.",
+      category: { create: { name: "Earbuds" } }
+  },
+  {
+      name: "ClearTones",
+      price: 79.99,
+      details: "High-resolution earbuds with ambient sound mode.",
+      category: { create: { name: "Earbuds" } }
+  },
+
+  // Headphones Products
+  {
+      name: "NoiseFree Over-Ear",
       price: 199.99,
-      details: "An e-book reader with a paper-like display."
-    }
-  ]
+      details: "Over-ear headphones providing immersive sound and noise cancellation.",
+      category: { create: { name: "Headphones" } }
+  },
+  {
+      name: "StudioSound Max",
+      price: 299.99,
+      details: "High-fidelity over-ear headphones for studio-quality sound.",
+      category: { create: { name: "Headphones" } }
+  },
+  {
+      name: "AudioFlex Premium",
+      price: 179.99,
+      details: "Flexible over-ear headphones with cushioned ear cups.",
+      category: { create: { name: "Headphones" } }
+  },
+ 
+  // Speakers Products
+  {
+      name: "UltraBoom Speaker",
+      price: 249.99,
+      details: "Portable speaker with deep bass, high volume levels, and long-lasting battery.",
+      category: { create: { name: "Speakers" } }
+  },
+  {
+      name: "MegaSound Blaster",
+      price: 299.99,
+      details: "Powerful speaker with advanced sound technology and connectivity features.",
+      category: { create: { name: "Speakers" } }
+  },
+  {
+      name: "BassPro Go",
+      price: 199.99,
+      details: "Compact yet powerful speaker with water-resistant design.",
+      category: { create: { name: "Speakers" } }
+  }
+];
+
+
+
 
 
 module.exports = products;

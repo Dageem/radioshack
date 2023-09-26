@@ -5,6 +5,7 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
@@ -12,6 +13,7 @@ model User {
   admin     Boolean  @default(false)
   orders    Order[]
 }
+
 model Product {
   id        Int        @id @default(autoincrement())
   name      String
@@ -19,7 +21,10 @@ model Product {
   imageUrl  String? //Image URL
   details   String
   cartItems CartItem[]
+  categoryId Int
+  category   Category  @relation(fields: [categoryId], references: [id])
 }
+
 model Order {
   id        Int        @id @default(autoincrement())
   userId    Int
@@ -27,6 +32,7 @@ model Order {
   isCart    Boolean    @default(true)
   cartItems CartItem[]
 }
+
 model CartItem {
   id        Int      @id @default(autoincrement())
   orderId   Int
@@ -34,4 +40,10 @@ model CartItem {
   productId Int
   product   Product  @relation(fields: [productId], references: [id])
   quantity  Int
+}
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  name     String
+  products Product[]
 }
