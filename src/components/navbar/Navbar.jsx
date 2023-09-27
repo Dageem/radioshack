@@ -20,7 +20,7 @@ function Nav() {
         {user.userId && <Link to={"/User"}>Profile</Link>}
         {user.userId && <button onClick={logout}>Logout</button>}
       </div>
-      {user.userId && <h1>Welcome {user.username}</h1>}
+      {user.userId && <h1>Welcome {user.email}</h1>}
     </nav>
   );
 }

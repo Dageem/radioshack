@@ -7,12 +7,14 @@ import Speakers from "./components/speakers/Speakers";
 import Home from "./components/home/Home";
 import SingleProduct from "./components/singleproduct/SingleProduct";
 import LoginRegister from "./components/login-register/Login-register";
+import Cart from "./components/cart/Cart";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<LoginRegister />} />
+      <Route path="/cart" element={<Cart />} />
       <Route path="/earbuds" element={<Earbuds />} />
       <Route path="/speakers" element={<Speakers />} />
       <Route path="/headphones" element={<Headphones />} />
