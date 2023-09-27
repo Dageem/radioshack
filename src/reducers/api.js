@@ -4,9 +4,6 @@ export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8081" }),
   endpoints: (builder) => ({
-    getProducts: builder.query({
-      query: () => "/api/products",
-    }),
     getCartItems: builder.query({
       query: () => "/api/cartitems",
     }),
@@ -24,37 +21,37 @@ export const api = createApi({
       }),
     }),
     getProducts: builder.query({
-        query: () => "/api/products",
-      }),
+      query: () => "/api/products",
+    }),
     getProductsById: builder.query({
-        query: (id) => "/api/products" + id,
-      }),
-      getProductsByCategory: builder.query({//////test
-        query: (categoryName) => `/api/products/category/${categoryName}`,
-      }),
+      query: (id) => "/api/products/" + id,
+    }),
+    getProductsByCategory: builder.query({
+      query: (categoryName) => `/api/products/category/${categoryName}`,
+    }),
     getCategoryByName: builder.query({
-        query: (name) => `/api/category/${name}`,
-      }),
+      query: (name) => `/api/category/${name}`,
+    }),
     getCategory: builder.query({
-        query: () => "/api/category",
-      }),
+      query: () => "/api/category",
+    }),
     getOrders: builder.query({
-        query: () => "api/orders",
-      }),
+      query: () => "api/orders",
+    }),
     getOrderById: builder.query({
-        query: (id) => "api/orders/" + id,
-      }),
+      query: (id) => "api/orders/" + id,
+    }),
     deleteOrder: builder.mutation({
-        query: (id) => ({
-          url: "api/orders/" + id,
-          method: "DELETE",
-        }),
+      query: (id) => ({
+        url: "api/orders/" + id,
+        method: "DELETE",
       }),
+    }),
     addOrder: builder.mutation({
-        query: (body) => ({
-          url: "api/orders",
-          method: "POST",
-          body: body,
+      query: (body) => ({
+        url: "api/orders",
+        method: "POST",
+        body: body,
       }),
     }),
   }),
@@ -72,5 +69,5 @@ export const {
   useGetOrderByIdQuery,
   useDeleteOrderMutation,
   useAddOrderMutation,
-  useGetProductsByCategoryQuery
+  useGetProductsByCategoryQuery,
 } = api;

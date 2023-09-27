@@ -1,7 +1,7 @@
 import React from "react";
 import { useGetProductsByCategoryQuery } from "../../reducers/api";
 import "./earbuds.css";
-
+import { Link } from "react-router-dom";
 
 function Earbuds() {
   const {
@@ -21,17 +21,19 @@ function Earbuds() {
         <ul className="products__list">
           {products.map((product) => (
             <li className="product" key={product.id}>
-              <div className="product__card">
-                <figure className="product__image-container">
-                  <img src={product.imageUrl} alt={product.name} />
-                </figure>
-                <div className="product__details">
-                  <h1 className="product__name">{product.name}</h1>
-                  <h4 className="product__price">
-                    ${parseFloat(product.price).toFixed(2)}
-                  </h4>
+              <Link to={`/product/${product.id}`} className="product__card">
+                <div className="product__card">
+                  <figure className="product__image-container">
+                    <img src={product.imageUrl} alt={product.name} />
+                  </figure>
+                  <div className="product__details">
+                    <h1 className="product__name">{product.name}</h1>
+                    <h4 className="product__price">
+                      ${parseFloat(product.price).toFixed(2)}
+                    </h4>
+                  </div>
                 </div>
-              </div>
+              </Link>
             </li>
           ))}
         </ul>
@@ -41,5 +43,3 @@ function Earbuds() {
 }
 
 export default Earbuds;
-
-
