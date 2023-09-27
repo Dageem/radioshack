@@ -1,10 +1,10 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {api as storeApi} from "./api";
+import { api } from "./api";
 
  //session storage key
 const CREDENTIALS = "credentials";
 
-const authApi = storeApi.injectEndpoints({
+const authApi = api.injectEndpoints({
     endpoints: (builder)=>({
         me: builder.query({
             query:()=> "auth/me"
@@ -52,9 +52,9 @@ const authSlice = createSlice({
     },
     reducers:{},
     extraReducers: (builder)=>{
-        builder.addMatcher(storeApi.endpoints.login.matchFulfilled, storeToken);
-        builder.addMatcher(storeApi.endpoints.register.matchFulfilled, storeToken);
-        builder.addMatcher(storeApi.endpoints.logout.matchFulfilled, (state)=>{
+        builder.addMatcher(api.endpoints.login.matchFulfilled, storeToken);
+        builder.addMatcher(api.endpoints.register.matchFulfilled, storeToken);
+        builder.addMatcher(api.endpoints.logout.matchFulfilled, (state)=>{
             console.log("logout")
             state.credentials = {
                 token:"",

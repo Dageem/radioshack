@@ -16,7 +16,7 @@ function Speakers() {
 
   return (
     <section className="products">
-      <h2 className="products__head">Earbuds</h2>
+      <h2 className="products__head">Speakers</h2>
       <div className="products__container">
         <ul className="products__list">
           {products.map((product) => (
