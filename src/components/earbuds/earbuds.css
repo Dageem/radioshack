@@ -3,6 +3,10 @@
   background-color: white;
 }
 
+
+.products{
+  padding-top:80px;
+}
 .products__head {
   margin-bottom: 5rem;
 }
