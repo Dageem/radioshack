@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Earbuds from "./components/earbuds/Earbuds";
@@ -17,6 +18,7 @@ function App() {
       <Route path="/headphones" element={<Headphones />} />
       <Route path="/product/:id" element={<SingleProduct />} />
     </Routes>
+
   );
 }
 

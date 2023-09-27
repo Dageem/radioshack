@@ -2,6 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useGetProductsByIdQuery } from "../../reducers/api";
 import "./singleProduct.css";
+// import addToCart from "../cart/Cart";
 
 function SingleProduct() {
   const { id } = useParams();
