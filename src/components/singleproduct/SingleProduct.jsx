@@ -18,9 +18,9 @@ function SingleProduct() {
       </div>
       <div className="product__details-container">
         <h1>{product.name}</h1>
-        <p>
+        <h2>
           <strong>${parseFloat(product.price).toFixed(2)}</strong>
-        </p>
+        </h2>
         <p>
           {product.details} Lorem ipsum dolor, sit amet consectetur adipisicing
           elit. Maxime perspiciatis alias nihil expedita ratione? Dicta illum
