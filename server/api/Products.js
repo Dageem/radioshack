@@ -23,5 +23,20 @@ router.get('/:id', async (req,res,next)=>{
         next(err)
     }
 })
+router.get('/category/:categoryName', async (req, res, next) => {  ///test
+    try {
+      const products = await prisma.product.findMany({
+        where: {
+          category: {
+            name: req.params.categoryName
+          }
+        }
+      });
+      res.send(products);
+    } catch (err) {
+      next(err);
+    }
+  });
+  
 
 module.exports = router;
