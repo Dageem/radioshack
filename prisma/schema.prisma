@@ -15,15 +15,19 @@ model User {
 }
 
 model Product {
-  id        Int        @id @default(autoincrement())
-  name      String
-  price     Decimal?
-  imageUrl  String? //Image URL
-  details   String
-  cartItems CartItem[]
+  id         Int       @id @default(autoincrement())
+  name       String
+  price      Decimal?
+  imageUrl   String?  //Image URL
+  image2Url  String?  //Second Image URL
+  image3Url  String?  //Third Image URL
+  videoUrl   String?  //Video URL
+  details    String
+  cartItems  CartItem[]
   categoryId Int
-  category   Category  @relation(fields: [categoryId], references: [id])
+  category   Category @relation(fields: [categoryId], references: [id])
 }
+
 
 model Order {
   id        Int        @id @default(autoincrement())
