@@ -2,15 +2,18 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useGetProductsByIdQuery } from "../../reducers/api";
 import "./singleProduct.css";
-// import addToCart from "../cart/Cart";
+import { addToCart } from "../../reducers/cart";
+import { useDispatch } from "react-redux";
 
 function SingleProduct() {
+  const dispatch = useDispatch();
   const { id } = useParams();
   const { data: product, error, isLoading } = useGetProductsByIdQuery(id);
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error loading product!</p>;
   if (!product) return <p>Product not found!</p>;
+
 
   const getEmbedUrl = (url) => {
     const regex =
