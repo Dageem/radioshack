@@ -8,6 +8,18 @@ function Cart() {
     event.preventDefault();
     dispatch(removeFromCart(cart));
   };
+
+  const calculateTotal = () => {
+    let totalPrice = 0.0;
+
+    cart.forEach((item) => {
+      totalPrice += parseFloat(item.price);
+    });
+
+    return { totalPrice };
+  };
+
+  const { totalPrice } = calculateTotal();
   return (
     <>
       <h2>Cart</h2>
@@ -26,6 +38,7 @@ function Cart() {
           ))}
         </ul>
       </div>
+      <h3>Total Price: ${totalPrice.toFixed(2)}</h3>
     </>
   );
 }

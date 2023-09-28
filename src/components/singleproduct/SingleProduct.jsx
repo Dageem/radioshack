@@ -14,6 +14,8 @@ function SingleProduct() {
   if (error) return <p>Error loading product!</p>;
   if (!product) return <p>Product not found!</p>;
 
+  
+
   const eventHandleP = (event) => {
     event.preventDefault();
     dispatch(addToCart(product));
