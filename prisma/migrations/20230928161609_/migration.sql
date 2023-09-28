@@ -14,6 +14,9 @@ CREATE TABLE "Product" (
     "name" TEXT NOT NULL,
     "price" DECIMAL(65,30),
     "imageUrl" TEXT,
+    "image2Url" TEXT,
+    "image3Url" TEXT,
+    "videoUrl" TEXT,
     "details" TEXT NOT NULL,
     "categoryId" INTEGER NOT NULL,
 
