@@ -2,15 +2,22 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useGetProductsByIdQuery } from "../../reducers/api";
 import "./singleProduct.css";
-// import addToCart from "../cart/Cart";
+import { addToCart } from "../../reducers/cart";
+import { useDispatch } from "react-redux";
 
 function SingleProduct() {
+  const dispatch = useDispatch();
   const { id } = useParams();
   const { data: product, error, isLoading } = useGetProductsByIdQuery(id);
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error loading product!</p>;
   if (!product) return <p>Product not found!</p>;
+
+  const eventHandleP = (event) => {
+    event.preventDefault();
+    dispatch(addToCart(product));
+  };
 
   return (
     <div className="single-product">
@@ -30,7 +37,7 @@ function SingleProduct() {
         </p>
       </div>
       <div className="product__button-container">
-        <button className="addToCart">Add to Cart</button>
+        <button className="addToCart" onClick={eventHandleP}>Add to Cart</button>
         <button>Buy Now</button>
       </div>
       <div className="product__desc-container">
