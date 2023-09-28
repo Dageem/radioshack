@@ -264,7 +264,7 @@ const products = [
     price: 119.99,
     details: "Bold sound ultra-portable speaker with integrated carabiner.",
     category: { create: { name: "Speakers" } },
-    imageUrl: 'https://m.media-amazon.com/images/I/71MaEpiMNGL._AC_SL1500_.jpg,',
+    imageUrl: 'https://m.media-amazon.com/images/I/71W+keLlNIL._AC_SL1500_.jpg,',
     image2Url: 'https://m.media-amazon.com/images/I/71W+keLlNIL._AC_SL1500_.jpg',
     image3Url: 'https://m.media-amazon.com/images/I/81YK2tVB0NL._AC_SL1500_.jpg',
     videoUrl: 'https://www.youtube.com/shorts/THcMW0mkc5o'

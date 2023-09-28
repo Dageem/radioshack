@@ -27,7 +27,7 @@ function Speakers() {
                     <img src={product.imageUrl} alt={product.name} />
                   </figure>
                   <div className="product__details">
-                    <h1 className="product__name">{product.name}</h1>
+                    <h3 className="product__name">{product.name}</h3>
                     <h4 className="product__price">
                       ${parseFloat(product.price).toFixed(2)}
                     </h4>
