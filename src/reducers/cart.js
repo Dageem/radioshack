@@ -8,9 +8,11 @@ const cartSlice = createSlice({
     reducers:{
         addToCart:(state, action)=>{
             state.push(action.payload);
+            localStorage.setItem('cart', JSON.stringify(state.items));
         },
         removeFromCart:(state, action)=>{
             state.splice(action.payload, 1);
+            localStorage.setItem('cart', JSON.stringify(state.items));
         }
     }
 })
