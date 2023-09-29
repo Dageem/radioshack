@@ -2,8 +2,14 @@ import React, { useState } from "react";
 import { useGetProductsByCategoryQuery } from "../../reducers/api";
 import "./headphones.css";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 function Headphones() {
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const {
     data: products,
     error,
