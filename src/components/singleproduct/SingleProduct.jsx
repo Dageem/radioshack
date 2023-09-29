@@ -44,7 +44,7 @@ function SingleProduct() {
         </div>
       </div>
       <div className="product__button-container">
-        <button className="addToCart">Add to Cart</button>
+        <button className="addToCart" onClick={() => dispatch(addToCart(product))}>Add to Cart</button>
         <button className="buyNow">Buy Now</button>
       </div>
       <div className="product__desc-container">
