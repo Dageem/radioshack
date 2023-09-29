@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useGetProductsByCategoryQuery } from "../../reducers/api";
-import "./headphones.css";
+import "./speakers.css";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 
