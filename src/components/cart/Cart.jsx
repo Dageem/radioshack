@@ -4,9 +4,8 @@ import { removeFromCart } from "../../reducers/cart";
 function Cart() {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
-  const eventHandleC = (event) => {
-    event.preventDefault();
-    dispatch(removeFromCart(cart));
+  const eventHandleC = (itemId) => {
+    dispatch(removeFromCart(itemId));
   };
 
   const calculateTotal = () => {
@@ -33,7 +32,7 @@ function Cart() {
               <h4 className="productprice">
                 ${parseFloat(product.price).toFixed(2)}
               </h4>
-              <button onClick={eventHandleC}>Remove from Cart</button>
+              <button onClick={() => eventHandleC(product.id)}>Remove from Cart</button>
             </li>
           ))}
         </ul>
