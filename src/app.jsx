@@ -11,6 +11,7 @@ import Cart from "./components/cart/Cart";
 
 function App() {
   return (
+    <>
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<LoginRegister />} />
@@ -20,7 +21,7 @@ function App() {
       <Route path="/headphones" element={<Headphones />} />
       <Route path="/product/:id" element={<SingleProduct />} />
     </Routes>
-
+    </>
   );
 }
 

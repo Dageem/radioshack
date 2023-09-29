@@ -4,8 +4,14 @@ import { useGetProductsByIdQuery } from "../../reducers/api";
 import "./singleProduct.css";
 import { addToCart } from "../../reducers/cart";
 import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 function SingleProduct() {
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const dispatch = useDispatch();
   const { id } = useParams();
   const { data: product, error, isLoading } = useGetProductsByIdQuery(id);
