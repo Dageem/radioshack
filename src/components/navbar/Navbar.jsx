@@ -16,6 +16,7 @@ function Nav() {
           <Link to={"/earbuds"}>EarBuds</Link>
           <Link to={"/speakers"}>Speaker</Link>
           <Link to={"/cart"}>Cart</Link>
+          <Link to={"/login"}>Login</Link>
         </div>
         {user.userId && <Link to={"/User"}>Profile</Link>}
         {user.userId && <button onClick={logout}>Logout</button>}

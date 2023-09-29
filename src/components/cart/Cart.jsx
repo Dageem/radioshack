@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart } from "../../reducers/cart";
+import "./cart.css"
 
 function Cart() {
   const dispatch = useDispatch();
@@ -37,7 +38,7 @@ function Cart() {
           ))}
         </ul>
       </div>
-      <h3>Total Price: ${totalPrice.toFixed(2)}</h3>
+      <h3 className="producttotalprice">Total Price: ${totalPrice.toFixed(2)}</h3>
     </>
   );
 }
