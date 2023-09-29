@@ -5,21 +5,23 @@ import "./home.css";
 
 function Home() {
   return (
-    <div>
+    <div className="hi">
       <section className="air-purifier">
         <img
           src="https://www.cnet.com/a/img/resize/4cbf8b7c6cbf21db9d2fa1f39f47e114d6c46cbe/hub/2022/03/29/4488932c-f341-4180-a1ee-894b837e7326/dyson-zone-promo.jpg?auto=webp&fit=crop&height=1200&width=1200"
-          alt="purifier-headphones"
-        />
-        <h2>Air-Purifying Headphones</h2>
+          alt="purifier-headphones"/>
+        <div className="air-purifier-text">
+        <h2 className="text-focus-in">Air-Purifying Headphones</h2>
         <p>
           Trying to tune out of reality while on the subway? Can't shake the
           anxiety of COVID-19 off to enjoy it?? Here at Radioshacc, we have the
           answer for you! Check out the brand new Kn-95 Turbo
         </p>
+        <br />
         <Link to="/headphones">
-          <button>Buy Now!</button>
+          <button className="">Buy Now!</button>
         </Link>
+        </div>
       </section>
       <section className="speakers">
         <h2>
