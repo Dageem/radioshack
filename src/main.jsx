@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import store from "./store";
 import "./index.css";
 import Nav from "./components/navbar/Navbar";
+import Footer from "./components/footer/Footer";
 
 ReactDOM.createRoot(document.body).render(
   <React.StrictMode>
@@ -13,6 +14,7 @@ ReactDOM.createRoot(document.body).render(
       <Provider store={store}>
         <Nav />
         <App />
+        <Footer />
       </Provider>
     </BrowserRouter>
   </React.StrictMode>
