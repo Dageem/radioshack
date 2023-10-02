@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./home.css";
+import image from "./calendar.png";
+import image2 from "./call.png";
+import image3 from "./wallet.png";
 
 function Home() {
   return (
@@ -28,21 +31,21 @@ function Home() {
       </section>
       <section className="scroll-box">
         <div className="scroll-child">
-          <img src="phone-outgoing(24x24)@3x.png" alt="phone-icon" />
+          <img src={image2} alt="phone-icon" />
           <h3>Want an expert opinion?</h3>
           <Link>
             <button>Chat with our tech dept</button>
           </Link>
         </div>
         <div className="scroll-child">
-          <img src="wallet(24x24)@3x.png" alt="phone-icon" />
+          <img src={image3} alt="phone-icon" />
           <h3>Have a budget in mind?</h3>
           <Link>
             <button>Chat with our finance dept</button>
           </Link>
         </div>
         <div className="scroll-child">
-          <img src="calendar-user(24x24)@3x.png" alt="phone-icon" />
+          <img src={image} alt="phone-icon" />
           <h3>Want to schedule a call?</h3>
           <Link>
             <button>Click here</button>
@@ -69,11 +72,11 @@ function Home() {
           alt="earbuds-lady"
         />
         <h3>
-          Introducing our newest Sound Focus noise cancelling technology for our earbuds. Say
-          goodbye to distractions and hello to crystal clear sound. Immerse
-          yourself in your music with unmatched precision and comfort and come
-          see why this is the new standard for audio experience. It's time to
-          hear the world differently.
+          Introducing our newest Sound Focus noise cancelling technology for our
+          earbuds. Say goodbye to distractions and hello to crystal clear sound.
+          Immerse yourself in your music with unmatched precision and comfort
+          and come see why this is the new standard for audio experience. It's
+          time to hear the world differently.
         </h3>
         <Link to="/earbuds">
           <button>Buy Now!</button>
