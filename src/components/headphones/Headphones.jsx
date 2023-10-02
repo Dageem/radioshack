@@ -57,8 +57,8 @@ function Headphones() {
             <li className="product" key={product.id}>
               <Link to={`/product/${product.id}`} className="product__card">
                 <div className="product__card">
-                  <figure className="product__image-container">
-                    <img src={product.imageUrl} alt={product.name} />
+                  <figure className="product__images-container">
+                    <img className="allImages" src={product.imageUrl} alt={product.name} />
                   </figure>
                   <div className="product__details">
                     <h1 className="product__name">{product.name}</h1>
