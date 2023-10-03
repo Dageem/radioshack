@@ -1,0 +1,13 @@
+.admin{
+    min-height: 100vh;
+}
+
+.admin h1{
+    text-align: center;
+}
+
+.admin__btn-container{
+    display:flex;
+    justify-content: center;
+}
+  
