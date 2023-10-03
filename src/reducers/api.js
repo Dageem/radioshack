@@ -54,10 +54,33 @@ export const api = createApi({
         body: body,
       }),
     }),
+    createProduct: builder.mutation({
+      query: (newProduct) => ({
+        url: "/api/products",
+        method: "POST",
+        body: newProduct,
+      }),
+    }),
+    updateProduct: builder.mutation({
+      query: ({ id, ...updatedProduct }) => ({
+        url: `/api/products/${id}`,
+        method: "PUT",
+        body: updatedProduct,
+      }),
+    }),
+    deleteProduct: builder.mutation({
+      query: (id) => ({
+        url: `/api/products/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
 export const {
+  useCreateProductMutation,
+  useUpdateProductMutation,
+  useDeleteProductMutation,
   useGetProductsQuery,
   useGetCartItemsQuery,
   useAddCartItemMutation,
