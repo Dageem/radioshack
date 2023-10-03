@@ -36,6 +36,7 @@ function Nav() {
           <Link to={"/login"}>Login</Link>
         </li>
         <li>{user.userId && <Link to={"/User"}>Profile</Link>}</li>
+        <li>{user.userId && <Link to={"/admin"}>Admin Panel</Link>}</li>
       </ul>
 
       {user.userId && <button onClick={logout}>Logout</button>}

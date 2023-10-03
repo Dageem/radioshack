@@ -3,9 +3,10 @@ const router = express.Router();
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-router.get("/", async (req, res, next) => {
+router.get("/", require("../auth/middleware"), async (req, res, next) => {
+  console.log('user',req.user)
   try {
-    const userId = req.userId;
+    const userId = req.user.id;
     const userOrders = await prisma.order.findMany({
       where: {
         userId: userId,
@@ -21,6 +22,29 @@ router.get("/", async (req, res, next) => {
       },
     });
     res.json(userOrders);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get("/cart", async (req, res, next) => {
+  try {
+    const userId = req.user.id;
+    const userOrder = await prisma.order.findUnique({
+      where: {
+        userId: userId,
+        isCart: true,
+      },
+      include: {
+        user: true,
+        cartItems: {
+          include: {
+            product: true,
+          },
+        },
+      },
+    });
+    res.json(userOrder);
   } catch (err) {
     next(err);
   }
