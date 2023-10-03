@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart } from "../../reducers/cart";
 import "./cart.css"
+import { useGetOrdersQuery } from "../../reducers/api";
 
 function Cart() {
   const dispatch = useDispatch();
@@ -8,7 +9,7 @@ function Cart() {
   const eventHandleC = (itemId) => {
     dispatch(removeFromCart(itemId));
   };
-
+useGetOrdersQuery();
   const calculateTotal = () => {
     let totalPrice = 0.0;
 

@@ -2,7 +2,19 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({
   reducerPath: "api",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8081" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "http://localhost:8081",
+    prepareHeaders: (headers, { getState }) => {
+      const credentials = window.sessionStorage.getItem("credentials");
+      console.log(credentials)
+      const parsedCredentials = JSON.parse(credentials||"{}");
+      const token = parsedCredentials.token;
+      if (token) {
+        headers.set("Authorization", token);
+      }else {headers.set("Authorization", "123");}
+      return headers;
+    },
+  }),
   endpoints: (builder) => ({
     getCartItems: builder.query({
       query: () => "/api/cartitems",
@@ -37,6 +49,9 @@ export const api = createApi({
     }),
     getOrders: builder.query({
       query: () => "api/orders",
+    }),
+    getOrder: builder.query({
+      query: () => "api/orders/cart",
     }),
     getOrderById: builder.query({
       query: (id) => "api/orders/" + id,
