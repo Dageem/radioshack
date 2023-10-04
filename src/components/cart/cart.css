@@ -1,4 +1,8 @@
-  .productimage-container img {
+.cart__container{
+  min-height:100vh;
+}
+
+.productimage-container img {
     max-width: 100px; 
     max-height: 100px; 
   }

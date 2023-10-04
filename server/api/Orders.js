@@ -21,13 +21,13 @@ router.get("/", require("../auth/middleware"), async (req, res, next) => {
         },
       },
     });
-    res.json(userOrders);
+  res.json(userOrders);
   } catch (err) {
     next(err);
   }
 });
 
-router.get("/cart", async (req, res, next) => {
+router.get("/cart", require("../auth/middleware"), async (req, res, next) => {
   try {
     const userId = req.user.id;
     const userOrder = await prisma.order.findUnique({
@@ -63,7 +63,7 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/", require("../auth/middleware"), async (req, res, next) => {
   try {
     const addorder = await prisma.order.create({
       data: req.body,
