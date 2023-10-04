@@ -10,6 +10,7 @@ import LoginRegister from "./components/login-register/Login-register";
 import Cart from "./components/cart/Cart";
 import AdminPanel from "./components/adminPanel/AdminPanel";
 import AddEditProds from "./components/adminPanel/AddEditProds";
+import UserProfile from "./components/UserProfile/UserProfile";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       <Route path="/product/:id" element={<SingleProduct />} />
       <Route path="/admin" element={<AdminPanel />} />
       <Route path="/admin/edit" element={<AddEditProds />} />
+      <Route path="/user" element={<UserProfile />} />
     </Routes>
     </>
   );

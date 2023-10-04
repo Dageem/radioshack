@@ -1,0 +1,27 @@
+.profile-container h1{
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    background-color:#D1F6D3;
+}
+
+.order-container{
+    border: solid;
+    margin: 20px;
+}
+
+.order-container h2{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.order-container ul{
+    margin: 20px;
+}
+
+.order-container li{
+    border: solid 1px;
+    padding: 10px;
+}
