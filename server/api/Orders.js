@@ -4,7 +4,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 router.get("/", require("../auth/middleware"), async (req, res, next) => {
-  console.log('user',req.user)
+  console.log("user", req.user);
   try {
     const userId = req.user.id;
     const userOrders = await prisma.order.findMany({
@@ -63,12 +63,71 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/", require("../auth/middleware"), async (req, res, next) => {
+  const { userId, quantity, productId } = req.body;
   try {
-    const addorder = await prisma.order.create({
-      data: req.body,
+    const openOrder = await prisma.order.findFirst({
+      where: {
+        userId: req.user.userId,
+        isFulfilled: false,
+      },
+      include: {
+        cartItem: {
+          include: {
+            product: true,
+          },
+        },
+      },
     });
-    res.send(addorder);
+
+    const existingproduct = openOrder.cartItem.find(
+      (product) => product.userId === userId
+    );
+    if (existingproduct) {
+      const updatedCartItem = await prisma.cartItem.update({
+        where: { id: existingproduct.id },
+        data: {
+          quantity: existingproduct.quantity + quantity,
+        },
+      });
+      const updatedOrder = await prisma.order.findFirst({
+        where: {
+          userId: req.user.id,
+          isFulfilled: false,
+        },
+        include: {
+          cartItem: {
+            include: {
+              product: true,
+            },
+          },
+        },
+      });
+      res.send({ addedToCart: updatedOrder.cartItem });
+    } else {
+      const createdCartItem = await prisma.cartItem.create({
+        data: {
+          orderId: openOrder.id,
+          productId,
+          quantity,
+        },
+      });
+
+      const updatedOrder = await prisma.order.findFirst({
+        where: {
+          userId: req.user.id,
+          isFulfilled: false,
+        },
+        include: {
+          cartItem: {
+            include: {
+              product: true,
+            },
+          },
+        },
+      });
+      res.send({ addedToCart: updatedOrder.cartItem });
+    }
   } catch (err) {
     next(err);
   }
