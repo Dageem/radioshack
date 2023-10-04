@@ -22,12 +22,12 @@ useGetOrdersQuery();
 
   const { totalPrice } = calculateTotal();
   return (
-    <>
+    <div className="cart__container">
       <h2>Cart</h2>
       <div>
         <ul>
-          {cart.map((product) => (
-            <li key={product.id}>
+          {cart.map((product, index) => (
+            <li className="product" key={index}>
               <figure className="productimage-container">
                 <img src={product.imageUrl} alt={product.name} />
               </figure>
@@ -40,7 +40,7 @@ useGetOrdersQuery();
         </ul>
       </div>
       <h3 className="producttotalprice">Total Price: ${totalPrice.toFixed(2)}</h3>
-    </>
+    </div>
   );
 }
 

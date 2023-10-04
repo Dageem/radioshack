@@ -9,7 +9,8 @@ import Nav from "./components/navbar/Navbar";
 import Footer from "./components/footer/Footer";
 
 
-ReactDOM.createRoot(document.body).render(
+const rootElement = document.getElementById('app-root');
+ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
