@@ -1,35 +1,61 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { api } from "./api";
 
-// const initialState = JSON.parse(localStorage.getItem('cart')) || []; this failed when the cart was empty so had to add below code...
 const getInitialCart = () => {
-    try {
-      const storedCart = localStorage.getItem('cart');
-      if (!storedCart) return []; 
-      return JSON.parse(storedCart); 
-    } catch (error) {
-      console.error("Error parsing cart from local storage", error);
-      return [];
-    }
-  };
-  
-  const initialState = getInitialCart();
+  try {
+    const storedCart = localStorage.getItem('cart');
+    return storedCart ? JSON.parse(storedCart) : [];
+  } catch (error) {
+    console.error("Error parsing cart from local storage", error);
+    return [];
+  }
+};
+
+const initialState = getInitialCart();
 
 const cartSlice = createSlice({
-    name: "cart",
-    initialState,
-    reducers: {
-        addToCart: (state, action) => {
-            state.push(action.payload);
-            localStorage.setItem('cart', JSON.stringify(state));
-        },
-        removeFromCart: (state, action) => {
-            const updatedCart = state.filter(item => item.id !== action.payload);
-            localStorage.setItem('cart', JSON.stringify(updatedCart));
-            return updatedCart;
-        }        
-    }
+  name: "cart",
+  initialState,
+  reducers: {
+    initializeCart: (state, action) => {
+      return action.payload;
+    },
+    addToCartLocal: (state, action) => {
+      state.push(action.payload);
+      localStorage.setItem('cart', JSON.stringify(state));
+    },
+    removeFromCartLocal: (state, action) => {
+      const updatedCart = state.filter(item => item.id !== action.payload);
+      localStorage.setItem('cart', JSON.stringify(updatedCart));
+      return updatedCart;
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addMatcher(api.endpoints.addCartItem.matchFulfilled, (state, action) => {
+      const userToken = window.sessionStorage.getItem("credentials");
+      if (!userToken) {
+        state.push(action.payload);
+        localStorage.setItem('cart', JSON.stringify(state));
+      }
+    });
+    builder.addMatcher(api.endpoints.deleteCartItem.matchFulfilled, (state, action) => {
+      const userToken = window.sessionStorage.getItem("credentials");
+      if (!userToken) {
+        const updatedCart = state.filter(item => item.id !== action.payload);
+        localStorage.setItem('cart', JSON.stringify(updatedCart));
+        return updatedCart;
+      }
+    });
+  },
 });
 
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const {
+  initializeCart,
+  addToCartLocal,
+  removeFromCartLocal,
+  clearCartLocal,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;
+
+

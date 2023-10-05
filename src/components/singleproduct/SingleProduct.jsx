@@ -1,10 +1,13 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useGetProductsByIdQuery } from "../../reducers/api";
+import {
+  useGetProductsByIdQuery,
+  useAddCartItemMutation,
+} from "../../reducers/api";
 import "./singleProduct.css";
-import { addToCart } from "../../reducers/cart";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
+import { addToCartLocal } from "../../reducers/cart";
 
 function SingleProduct() {
   useEffect(() => {
@@ -15,10 +18,31 @@ function SingleProduct() {
   const { id } = useParams();
   const { data: product, error, isLoading } = useGetProductsByIdQuery(id);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [addCartItem] = useAddCartItemMutation();
+
+
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error loading product!</p>;
   if (!product) return <p>Product not found!</p>;
+
+  const handleAddToCart = async (product) => {
+    console.log("handleAddToCart called");
+    const userToken = window.sessionStorage.getItem("credentials");
+  
+    if (userToken) {
+      console.log("User is logged in");
+      // If user is logged in, server
+      await addCartItem({ productId: product.id, quantity: 1 });
+      console.log("addCartItem executed");
+    } else {
+      console.log("User is a guest");
+      // If user is a guest, local
+      dispatch(addToCartLocal(product));
+      console.log("addToCartLocal executed");
+    }
+  };
+  
 
   const handleImageChange = (direction) => {
     let newIndex = currentImageIndex;
@@ -83,10 +107,7 @@ function SingleProduct() {
         </div>
       </div>
       <div className="product__button-container">
-        <button
-          className="addToCart"
-          onClick={() => dispatch(addToCart(product))}
-        >
+        <button className="addToCart" onClick={() => handleAddToCart(product)}>
           Add to Cart
         </button>
         <button className="buyNow">Buy Now</button>
