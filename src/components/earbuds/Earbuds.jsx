@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useGetProductsByCategoryQuery } from "../../reducers/api";
 import "./earbuds.css";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
 
 function Headphones() {
 
@@ -17,9 +16,12 @@ function Headphones() {
   } = useGetProductsByCategoryQuery("Earbuds");
 
   const [sortOrder, setSortOrder] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 18;
 
   const handleSortChange = (order) => {
     setSortOrder(order);
+    setCurrentPage(1);
   };
 
   const sortedProducts = [...(products || [])].sort((a, b) => {
@@ -33,10 +35,27 @@ function Headphones() {
     }
   });
 
+  const startIdx = (currentPage - 1) * itemsPerPage;
+  const endIdx = startIdx + itemsPerPage;
+  const displayedProducts = sortedProducts.slice(startIdx, endIdx);
+
+  const totalPages = Math.ceil(sortedProducts.length / itemsPerPage);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error loading products!</p>;
-  if (!sortedProducts || sortedProducts.length === 0)
-    return <p>No products found!</p>;
+  if (!sortedProducts || sortedProducts.length === 0) return <p>No products found!</p>;
 
   return (
     <section className="products">
@@ -53,12 +72,12 @@ function Headphones() {
           </select>
         </div>
         <ul className="products__list">
-          {sortedProducts.map((product) => (
+          {displayedProducts.map((product) => (
             <li className="product" key={product.id}>
               <Link to={`/product/${product.id}`} className="product__card">
                 <div className="product__card">
-                  <figure className="product__image-container">
-                    <img src={product.imageUrl} alt={product.name} />
+                  <figure className="product__images-container">
+                    <img className="allImages" src={product.imageUrl} alt={product.name} />
                   </figure>
                   <div className="product__details">
                     <h1 className="product__name">{product.name}</h1>
@@ -71,6 +90,15 @@ function Headphones() {
             </li>
           ))}
         </ul>
+      </div>
+      <div className="pagination">
+        <button onClick={handlePrevPage} disabled={currentPage === 1}>
+          Previous
+        </button>
+        <span>Page {currentPage} of {totalPages}</span>
+        <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+          Next
+        </button>
       </div>
     </section>
   );

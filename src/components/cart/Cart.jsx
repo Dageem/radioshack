@@ -12,21 +12,21 @@ function Cart() {
   const eventHandleC = async (itemId) => {
     const userToken = window.sessionStorage.getItem("credentials");
 
-    if (userToken) {
-      // If user is logged in, delete from the server
-      await deleteCartItem(itemId);
-    } else {
-      // If user is a guest, delete from local storage
-      dispatch(removeFromCartLocal(itemId));
+    try {
+      if (userToken) {
+        // If user is logged in, delete from the server
+        await deleteCartItem(itemId);
+      } else {
+        // If user is a guest, delete from local storage
+        dispatch(removeFromCartLocal(itemId));
+      }
+    } catch (error) {
+      console.error("Failed to remove item from cart:", error);
     }
   };
 
   const calculateTotal = () => {
-    let totalPrice = 0.0;
-    cart.forEach((item) => {
-      totalPrice += parseFloat(item.price);
-    });
-    return totalPrice;
+    return cart.reduce((acc, item) => acc + parseFloat(item.price), 0.0);
   };
 
   const totalPrice = calculateTotal();
@@ -36,8 +36,8 @@ function Cart() {
       <h2>Cart</h2>
       <div>
         <ul>
-          {cart.map((product, index) => (
-            <li className="product" key={index}>
+          {cart.map((product) => (
+            <li className="product" key={product.id}>
               <figure className="productimage-container">
                 <img src={product.imageUrl} alt={product.name} />
               </figure>
@@ -59,3 +59,4 @@ function Cart() {
 }
 
 export default Cart;
+

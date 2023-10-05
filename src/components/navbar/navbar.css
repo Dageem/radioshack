@@ -1,12 +1,8 @@
-.active{
-  background-color: #1d4ed8;
-}
-
 nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #0f172a;
+  background-color: #315b3a;
   color: white;
   position: sticky;
   top: 0;
@@ -26,7 +22,9 @@ nav ul {
 }
 
 nav ul li {
- list-style: none; 
+ list-style: none;
+ padding: 2px; 
+ margin:2px;
 }
 
 nav ul li a {
@@ -39,7 +37,7 @@ nav ul li a {
 }
 
 nav ul li a:not(.active):hover {
-  background-color:#172554 ;
+  background-color:#308f38 ;
 }
 
 nav .menu {
@@ -48,7 +46,7 @@ nav .menu {
   top: 0.75rem;
   right: 0.5rem;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 2.25rem;
   height: 2rem;
 }
@@ -61,7 +59,8 @@ nav .menu span {
 }
 
 
-@media (max-width: 500px) {
+
+@media (max-width: 800px) {
   nav .menu {
       display: flex;
   }
