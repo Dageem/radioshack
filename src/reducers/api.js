@@ -108,4 +108,5 @@ export const {
   useDeleteOrderMutation,
   useAddOrderMutation,
   useGetProductsByCategoryQuery,
+  useGetOrderQuery
 } = api;
