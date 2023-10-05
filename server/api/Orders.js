@@ -68,8 +68,8 @@ router.post("/", require("../auth/middleware"), async (req, res, next) => {
   try {
     const openOrder = await prisma.order.findFirst({
       where: {
-        userId: req.user.userId,
-        isFulfilled: false,
+        userId: req.user.id,
+        isCart: true,
       },
       include: {
         cartItem: {
