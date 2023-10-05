@@ -62,7 +62,6 @@ router.get("/:id", async (req, res, next) => {
     next(err);
   }
 });
-//.put?
 router.post("/", require("../auth/middleware"), async (req, res, next) => {
   const { userId, quantity, productId } = req.body;
   try {
