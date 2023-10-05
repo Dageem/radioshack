@@ -1,33 +1,45 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useDeleteCartItemMutation } from "../../reducers/api";
-import { removeFromCartLocal } from "../../reducers/cart";
+import { useDispatch } from "react-redux";
+import {
+  useDeleteCartItemMutation,
+  useGetOrderQuery,
+} from "../../reducers/api";
 import "./cart.css";
 
 function Cart() {
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart);
   const [deleteCartItem] = useDeleteCartItemMutation();
+  const { data: order, error, isLoading } = useGetOrderQuery();
 
-  const eventHandleC = async (itemId) => {
+console.log(order)
+
+  const handleRemoveItem = async (itemId) => {
     const userToken = window.sessionStorage.getItem("credentials");
-
-    if (userToken) {
-      // If user is logged in, delete from the server
-      await deleteCartItem(itemId);
-    } else {
-      // If user is a guest, delete from local storage
-      dispatch(removeFromCartLocal(itemId));
+    try {
+      if (userToken) {
+        await deleteCartItem(itemId).unwrap();
+      }
+    } catch (err) {
+      console.error("Failed to remove item from cart:", err);
     }
   };
 
   const calculateTotal = () => {
-    let totalPrice = 0.0;
-    cart.forEach((item) => {
-      totalPrice += parseFloat(item.price);
-    });
-    return totalPrice;
+    if (!order || !order.cartItems) return 0;
+    return order.cartItems.reduce(
+      (acc, cartItem) =>
+        acc + parseFloat(cartItem.product.price) * cartItem.quantity,
+      0.0
+    );
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error loading cart items: {error.message}</div>;
+  }
 
   const totalPrice = calculateTotal();
 
@@ -36,19 +48,28 @@ function Cart() {
       <h2>Cart</h2>
       <div>
         <ul>
-          {cart.map((product, index) => (
-            <li className="product" key={index}>
-              <figure className="productimage-container">
-                <img src={product.imageUrl} alt={product.name} />
-              </figure>
-              <h4 className="productprice">
-                ${parseFloat(product.price).toFixed(2)}
-              </h4>
-              <button onClick={() => eventHandleC(product.id)}>
-                Remove from Cart
-              </button>
-            </li>
-          ))}
+          {order &&
+            order.cartItems &&
+            order.cartItems.map((cartItem) => (
+              <li
+                className="product"
+                key={`${cartItem.product.id}-${cartItem.id}`}
+              >
+                <figure className="productimage-container">
+                  <img
+                    src={cartItem.product.imageUrl}
+                    alt={cartItem.product.name}
+                  />
+                </figure>
+                <h4 className="productprice">
+                  ${parseFloat(cartItem.product.price).toFixed(2)} x{" "}
+                  {cartItem.quantity}
+                </h4>
+                <button onClick={() => handleRemoveItem(cartItem.id)}>
+                  Remove from Cart
+                </button>
+              </li>
+            ))}
         </ul>
       </div>
       <h3 className="producttotalprice">

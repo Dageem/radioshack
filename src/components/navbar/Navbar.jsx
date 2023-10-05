@@ -3,6 +3,9 @@ import { useLogoutMutation } from "../../reducers/auth";
 import { useSelector } from "react-redux";
 import "./navbar.css";
 import React, { useState } from "react";
+import { FiShoppingCart } from "react-icons/fi";
+import { CgProfile } from "react-icons/cg";
+import { AiFillHome } from "react-icons/ai";
 
 function Nav() {
   const [logout] = useLogoutMutation();
@@ -12,7 +15,7 @@ function Nav() {
   return (
     <nav>
       <Link to="/" className="title">
-        Home
+        RadShak
       </Link>
       <div className="menu" onClick={() => setMenuOpen(!menuOpen)}>
         <span></span>
@@ -30,18 +33,34 @@ function Nav() {
           <Link to={"/speakers"}>Speaker</Link>
         </li>
         <li>
-          <Link to={"/cart"}>Cart</Link>
+          <Link to={"/"}>
+            <AiFillHome />
+          </Link>
         </li>
         <li>
-          <Link to={"/login"}>Login</Link>
+          <Link to={"/cart"}>
+            <FiShoppingCart />
+          </Link>
         </li>
-        <li>{user.userId && <Link to={"/User"}>Profile</Link>}</li>
-        <li>{user.userId && <Link to={"/admin"}>Admin Panel</Link>}</li>
+        <li>
+          {user.userId && (
+            <Link to={"/User"}>
+              <CgProfile />
+            </Link>
+          )}
+        </li>
+        <li>{user.userId && <Link to={"/admin"}>Admin</Link>}</li>
+        {!user.userId && (
+          <li>
+            <Link to={"/login"}>Login</Link>
+          </li>
+        )}
+        {user.userId && (
+          <li>
+            <button onClick={logout}>Logout</button>
+          </li>
+        )}
       </ul>
-
-      {user.userId && <button onClick={logout}>Logout</button>}
-
-      {user.userId && <h1>Welcome {user.email}</h1>}
     </nav>
   );
 }

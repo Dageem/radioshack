@@ -59,6 +59,17 @@ ul {
   padding: 0;
 }
 
+.pagination{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination button{
+  margin:5px;
+  border-radius: 10px;
+}
+
 /* Medium devices (tablets) */
 @media(min-width: 470px) {
   .products__list {

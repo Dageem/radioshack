@@ -30,7 +30,7 @@ router.get("/", require("../auth/middleware"), async (req, res, next) => {
 router.get("/cart", require("../auth/middleware"), async (req, res, next) => {
   try {
     const userId = req.user.id;
-    const userOrder = await prisma.order.findUnique({
+    const userOrder = await prisma.order.findFirst({
       where: {
         userId: userId,
         isCart: true,
