@@ -92,7 +92,7 @@ router.post("/", require("../auth/middleware"), async (req, res, next) => {
       const updatedOrder = await prisma.order.findFirst({
         where: {
           userId: req.user.id,
-          isFulfilled: false,
+          isCart: false,
         },
         include: {
           cartItem: {
@@ -140,6 +140,42 @@ router.delete("/:id", async (req, res, next) => {
       },
     });
     res.send(deleteorder);
+  } catch (err) {
+    next(err);
+  }
+});
+
+
+router.put("/submit", require("../auth/middleware"), async (req, res, next) => {
+  try {
+    async function findopenOrder(){
+    const openOrder = await prisma.order.findFirst({
+      where: {
+        userId: req.user.id,
+        isCart: true
+      },
+    });
+    return openOrder.id;
+  }
+    async function closeOrder(){
+    const ClosedOrder = await prisma.order.update({
+      where: {
+        id: await findopenOrder(),
+      },
+      data: {
+        isCart: false
+      }
+    });
+  }
+  closeOrder();
+
+  const NewOrder = await prisma.order.create({
+    data: {
+      userId: req.user.id,
+      isCart: true,
+    }
+  });
+    res.send(NewOrder);
   } catch (err) {
     next(err);
   }

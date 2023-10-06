@@ -76,6 +76,12 @@ export const api = createApi({
         body: newProduct,
       }),
     }),
+    editOrder: builder.mutation({
+      query: () => ({
+        url: "api/orders/submit",
+        method: "PUT",
+      }),
+    }),
     updateProduct: builder.mutation({
       query: ({ id, ...updatedProduct }) => ({
         url: `/api/products/${id}`,
@@ -107,6 +113,7 @@ export const {
   useGetOrderByIdQuery,
   useDeleteOrderMutation,
   useAddOrderMutation,
+  useEditOrderMutation,
   useGetProductsByCategoryQuery,
   useGetOrderQuery
 } = api;

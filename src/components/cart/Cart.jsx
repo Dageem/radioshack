@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import {
   useDeleteCartItemMutation,
+  useEditOrderMutation,
   useGetOrderQuery,
 } from "../../reducers/api";
 import "./cart.css";
@@ -10,8 +11,9 @@ function Cart() {
   const dispatch = useDispatch();
   const [deleteCartItem] = useDeleteCartItemMutation();
   const { data: order, error, isLoading } = useGetOrderQuery();
+  const [submitcart] = useEditOrderMutation();
 
-console.log(order)
+
 
   const handleRemoveItem = async (itemId) => {
     const userToken = window.sessionStorage.getItem("credentials");
@@ -23,7 +25,16 @@ console.log(order)
       console.error("Failed to remove item from cart:", err);
     }
   };
-
+  const handleSubmitCart = async (itemId) => {
+    const userToken = window.sessionStorage.getItem("credentials");
+    try {
+      if (userToken) {
+        await submitcart(itemId).unwrap();
+      }
+    } catch (err) {
+      console.error("Failed to submit item from cart:", err);
+    }
+  };
   const calculateTotal = () => {
     if (!order || !order.cartItems) return 0;
     return order.cartItems.reduce(
@@ -75,6 +86,11 @@ console.log(order)
       <h3 className="producttotalprice">
         Total Price: ${totalPrice.toFixed(2)}
       </h3>
+      <div className="CartSubmit">
+      <button onClick={() => handleSubmitCart()}>
+                  Submit Cart
+                </button>
+      </div>
     </div>
   );
 }
