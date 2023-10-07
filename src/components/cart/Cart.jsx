@@ -1,5 +1,4 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import {
   useDeleteCartItemMutation,
   useEditOrderMutation,
@@ -9,7 +8,6 @@ import "./cart.css";
 import { useSelector } from "react-redux";
 
 function Cart() {
-  const dispatch = useDispatch();
   const [deleteCartItem] = useDeleteCartItemMutation();
   const { data: apiCart, error, isLoading } = useGetOrderQuery();
   const [submitcart] = useEditOrderMutation();
@@ -17,13 +15,15 @@ function Cart() {
 
   const localCart = useSelector((state) => state.cart);
 
-  console.log("LOCAL CART", localCart);
   const order = userToken ? apiCart?.cartItems : localCart;
 
   const handleRemoveItem = async (itemId) => {
     try {
       if (userToken) {
         await deleteCartItem(itemId).unwrap();
+      } else {
+        const updatedLocalCart = localCart.filter((item) => item.id !== itemId);
+        localStorage.setItem("cart", JSON.stringify(updatedLocalCart));
       }
     } catch (err) {
       console.error("Failed to remove item from cart:", err);
@@ -39,13 +39,35 @@ function Cart() {
     }
   };
   const calculateTotal = () => {
-    if (!order || !order.cartItems) return 0;
-    return order.cartItems.reduce(
-      (acc, cartItem) =>
-        acc + parseFloat(cartItem.product.price) * cartItem.quantity,
-      0.0
-    );
+    if (userToken) {
+      if (apiCart && apiCart.cartItems) {
+        return apiCart.cartItems.reduce(
+          (acc, cartItem) =>
+            acc + parseFloat(cartItem.product.price) * cartItem.quantity,
+          0.0
+        );
+      } else {
+        return 0.0;
+      }
+    } else {
+      if (order) {
+        return order.reduce(
+          (acc, cartItem) =>
+            acc + parseFloat(cartItem.product.price) * cartItem.quantity,
+          0.0
+        );
+      } else {
+        return localCart.reduce(
+          (acc, cartItem) =>
+            acc + parseFloat(cartItem.product.price) * cartItem.quantity,
+          0.0
+        );
+      }
+    }
   };
+  
+  
+
 
   if (isLoading) {
     return <div>Loading...</div>;

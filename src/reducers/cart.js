@@ -22,14 +22,14 @@ const cartSlice = createSlice({
       return action.payload;
     },
     addToCartLocal: (state, action) => {
-      state.push({ ...action.payload, id: state.length }); //localstorage does not have autoincrement because its not being pushed to DB
-      localStorage.setItem("cart", JSON.stringify(state));// 
+      state.push({ ...action.payload, id: state.length }); //localstorage does not have autoincrement id because its not being pushed to DB, so added id of state.length
+      localStorage.setItem("cart", JSON.stringify(state));
     },
     removeFromCartLocal: (state, action) => {
       const updatedCart = state.filter((item) => item.id !== action.payload);
       localStorage.setItem("cart", JSON.stringify(updatedCart));
-      return updatedCart;
-    },
+      state.splice(0, state.length, ...updatedCart); // Update the state directly
+    },    
   },
   extraReducers: (builder) => {
     builder.addMatcher(

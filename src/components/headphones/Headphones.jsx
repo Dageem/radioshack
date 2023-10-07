@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useGetProductsByCategoryQuery } from "../../reducers/api";
 import "./headphones.css";
 import { Link } from "react-router-dom";

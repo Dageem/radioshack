@@ -30,12 +30,10 @@ function SingleProduct() {
 
     if (userToken) {
       console.log("User is logged in");
-      // If user is logged in, server
       await addCartItem({ productId: product.id, quantity: 1 });
       console.log("addCartItem executed");
     } else {
       console.log("User is a guest");
-      // If user is a guest, local
       dispatch(
         addToCartLocal({
           productId: product.id,
