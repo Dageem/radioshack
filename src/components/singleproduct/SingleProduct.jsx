@@ -20,8 +20,6 @@ function SingleProduct() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [addCartItem] = useAddCartItemMutation();
 
-
-
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error loading product!</p>;
   if (!product) return <p>Product not found!</p>;
@@ -29,20 +27,23 @@ function SingleProduct() {
   const handleAddToCart = async (product) => {
     console.log("handleAddToCart called");
     const userToken = window.sessionStorage.getItem("credentials");
-  
+
     if (userToken) {
       console.log("User is logged in");
-      // If user is logged in, server
       await addCartItem({ productId: product.id, quantity: 1 });
       console.log("addCartItem executed");
     } else {
       console.log("User is a guest");
-      // If user is a guest, local
-      dispatch(addToCartLocal(product));
+      dispatch(
+        addToCartLocal({
+          productId: product.id,
+          product,
+          quantity: 1,
+        })
+      );
       console.log("addToCartLocal executed");
     }
   };
-  
 
   const handleImageChange = (direction) => {
     let newIndex = currentImageIndex;
