@@ -13,7 +13,11 @@ router.post("/register", async (req, res, next) => {
       data: {
         email: req.body.email, // use email here
         password: hashedPassword,
+        orders: {create: [{isCart:true}]}
       },
+      include:{
+        orders: true
+      }
     });
 
     const token = jwt.sign({ id: user.id }, process.env.JWT);
