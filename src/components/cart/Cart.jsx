@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   useDeleteCartItemMutation,
   useEditOrderMutation,
@@ -13,9 +13,24 @@ function Cart() {
   const [submitcart] = useEditOrderMutation();
   const userToken = window.sessionStorage.getItem("credentials");
 
-  const localCart = useSelector((state) => state.cart);
+  const reduxCart = useSelector((state) => state.cart);
 
-  const order = userToken ? apiCart?.cartItems : localCart;
+  // Local cart state to keep it in sync with the Redux store
+  const [localCart, setLocalCart] = useState(reduxCart);
+  // API cart state to keep it in sync with the API response
+  const [apiCartState, setApiCartState] = useState(apiCart);
+
+  useEffect(() => {
+    // Update the local cart whenever the Redux cart changes
+    setLocalCart(reduxCart);
+  }, [reduxCart]);
+
+  useEffect(() => {
+    // Update the API cart whenever the API response changes
+    setApiCartState(apiCart); // Update apiCartState when apiCart changes
+  }, [apiCart]);
+console.log(apiCart)
+  const order = userToken ? apiCart?.cartItems : localCart || [];
 
   const handleRemoveItem = async (itemId) => {
     try {
@@ -24,20 +39,24 @@ function Cart() {
       } else {
         const updatedLocalCart = localCart.filter((item) => item.id !== itemId);
         localStorage.setItem("cart", JSON.stringify(updatedLocalCart));
+        // Update the local cart state
+        setLocalCart(updatedLocalCart);
       }
     } catch (err) {
       console.error("Failed to remove item from cart:", err);
     }
   };
-  const handleSubmitCart = async (itemId) => {
+
+  const handleSubmitCart = async () => {
     try {
       if (userToken) {
-        await submitcart(itemId).unwrap();
+        await submitcart(order).unwrap();
       }
     } catch (err) {
-      console.error("Failed to submit item from cart:", err);
+      console.error("Failed to submit cart:", err);
     }
   };
+
   const calculateTotal = () => {
     if (userToken) {
       if (apiCart && apiCart.cartItems) {
@@ -65,9 +84,6 @@ function Cart() {
       }
     }
   };
-  
-  
-
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -117,3 +133,4 @@ function Cart() {
 }
 
 export default Cart;
+
