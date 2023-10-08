@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useGetProductsByCategoryQuery } from "../../reducers/api";
 import "./speakers.css";
 import { Link } from "react-router-dom";
@@ -98,13 +98,21 @@ function Headphones() {
         </ul>
       </div>
       <div className="pagination">
-        <button onClick={handlePrevPage} disabled={currentPage === 1}>
+        <button
+          className="button__prev"
+          onClick={handlePrevPage}
+          disabled={currentPage === 1}
+        >
           Previous
         </button>
         <span>
           Page {currentPage} of {totalPages}
         </span>
-        <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+        <button
+          className="button__next"
+          onClick={handleNextPage}
+          disabled={currentPage === totalPages}
+        >
           Next
         </button>
       </div>
