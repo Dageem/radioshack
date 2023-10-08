@@ -3,7 +3,6 @@ import { useGetOrdersQuery } from "../../reducers/api";
 import "./userProfile.css";
 import { useSelector } from "react-redux";
 
-
 function UserProfile() {
   const user = useSelector((state) => state.auth.credentials.user) || "";
   const [userId, setUserId] = useState(user.userId);
@@ -33,6 +32,15 @@ function UserProfile() {
   if (isLoading) {
     return <div>Loading...</div>;
   }
+
+  const calculateTotalPrice = (cartItems) => {
+    return cartItems.reduce((total, cartItem) => {
+      const productPrice = parseFloat(cartItem.product.price) || 0;
+      const quantity = cartItem.quantity || 0;
+      return total + productPrice * quantity;
+    }, 0);
+  };
+
   return (
     <div className="profile-container">
       {user.userId && <h1>{user.email}'s Profile</h1>}
@@ -44,14 +52,20 @@ function UserProfile() {
           <div>
             {ordersData.map((order) => (
               <div className="small-order-container" key={order.id}>
-                <h3>Order ID: {order.id}</h3>
+                <h3>Order ID: {order.id} </h3>
+                <h3>
+                  Total Price: $
+                  {calculateTotalPrice(order.cartItems).toFixed(2)}
+                </h3>
                 <div className="order-details">
                   {order.cartItems.map((cartItem) => (
                     <div className="individual-item-details" key={cartItem.id}>
                       <img src={cartItem.product.imageUrl} alt="pic" />
-                      <h4>Product: {cartItem.product.name}</h4> 
-                      <h4>Quantity: {cartItem.quantity}</h4> 
-                      <h4>Price: ${parseFloat(cartItem.product.price).toFixed(2)}</h4>
+                      <h4>Product: {cartItem.product.name}</h4>
+                      <h4>Quantity: {cartItem.quantity}</h4>
+                      <h4>
+                        Price: ${parseFloat(cartItem.product.price).toFixed(2)}
+                      </h4>
                       <h4>Details: {cartItem.product.details}</h4>
                     </div>
                   ))}

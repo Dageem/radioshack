@@ -65,9 +65,11 @@ console.log(order)
                   ${parseFloat(cartItem.product.price).toFixed(2)} x{" "}
                   {cartItem.quantity}
                 </h4>
+                <div className="cart-button">
                 <button onClick={() => handleRemoveItem(cartItem.id)}>
                   Remove from Cart
                 </button>
+                </div>
               </li>
             ))}
         </ul>

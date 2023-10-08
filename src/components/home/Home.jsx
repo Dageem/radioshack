@@ -4,30 +4,56 @@ import "./home.css";
 import image from "./calendar.png";
 import image2 from "./call.png";
 import image3 from "./wallet.png";
+import speaker1 from "./speaker1.png";
+import speaker2 from "./speaker2.png";
+import speaker3 from "./speaker3.png";
+import speaker4 from "./speaker4.png";
+import speaker5 from "./speaker5.png";
+import airpurifier from "./airpurifier.png"
 
 function Home() {
+
   return (
     <div>
-      <section className="air-purifier">
-        <img
-          src="https://www.cnet.com/a/img/resize/4cbf8b7c6cbf21db9d2fa1f39f47e114d6c46cbe/hub/2022/03/29/4488932c-f341-4180-a1ee-894b837e7326/dyson-zone-promo.jpg?auto=webp&fit=crop&height=1200&width=1200"
-          alt="purifier-headphones"
-        />
-        <div className="air-purifier-text">
-          <h2 className="text-focus-in">Air-Purifying Headphones</h2>
-          <p>
-            Trying to tune out of reality while on the subway? Can't shake the
-            anxiety of COVID-19 off to enjoy it?? Here at Radioshacc, we have
-            the answer for you! Check out the brand new Kn-95 Turbo
-          </p>
-          <br />
-          <Link to="/headphones">
-            <button className="">Buy Now!</button>
-          </Link>
-        </div>
-      </section>
+      <div className="big-air-container">
+        <section className="air-purifier">
+          <div className="image-container">
+            <img
+              src={airpurifier}
+              alt="purifier-headphones"
+            />
+          </div>
+          <div className="air-purifier-text">
+            <h3>RadShak</h3>
+            <h2 className="text-focus-in">Air-Purifying Headphones</h2>
+            <p>
+              Trying to tune out of reality while on the subway? Can't shake the
+              anxiety of COVID-19 off to enjoy it?? Here at RadShak, we have the
+              answer for you! Check out the brand new Kn-95 Turbo
+            </p>
+            <br />
+            <Link to="/headphones">
+              <button className="button">Pre-Order Now</button>
+            </Link>
+          </div>
+        </section>
+      </div>
       <section className="quote">
-        <h1>"The best collection of speakers around" - Donkey Kong</h1>
+        <h1>
+          Discover Sound Excellence:{" "}
+          <Link to="/speakers" className="quote-link">
+            Speakers
+          </Link>
+          ,{" "}
+          <Link to="/headphones" className="quote-link">
+            Headphones
+          </Link>
+          , and{" "}
+          <Link to="/earbuds" className="quote-link">
+            Earbuds
+          </Link>{" "}
+          for Every Beat.
+        </h1>
       </section>
       <section className="scroll-box">
         <div className="scroll-child">
@@ -52,20 +78,32 @@ function Home() {
           </Link>
         </div>
       </section>
-      <section className="speakers">
-        <h2>
-          Take a look in our shop and find one of the most exciting assortments
-          of speaker technology around.
-        </h2>
-        <img
-          src="https://www.marshallheadphones.com/dw/image/v2/BCQL_PRD/on/demandware.static/-/Sites-zs-master-catalog/default/dw7f9fec3d/images/marshall/speakers/stanmore-ii-bt/black/large/pos-marshall-stanmore-ii-bt-black-01.png"
-          alt="many-speakers"
-        />
-        <Link to="/speakers">
-          <button className="speakers-button">Purchase</button>
-        </Link>
-      </section>
-      <section className="earbuds">
+      <div className="big-sound-container">
+        <section className="sound-focus">
+          <div>
+            <img
+              src="https://us.soundcore.com/cdn/shop/articles/20220818-210015_2ddbe14d-e2c9-4a79-8d34-1046bd45479b_1040x.jpg?v=1663815360"
+              alt="purifier-headphones"
+            />
+          </div>
+          <div className="sound-focus-text">
+            <h3>RadShak</h3>
+            <h2>Sound Focus</h2>
+            <p>
+              Introducing our newest Sound Focus noise cancelling technology for
+              our earbuds. Say goodbye to distractions and hello to crystal
+              clear sound. Immerse yourself in your music with unmatched
+              precision and comfort and come see why this is the new standard
+              for audio experience. It's time to hear the world differently.
+            </p>
+            <br />
+            <Link to="/earbuds">
+              <button className="sound-button">Order Now</button>
+            </Link>
+          </div>
+        </section>
+      </div>
+      {/* <section className="earbuds">
         <h2>Sound Focus</h2>
         <img
           src="https://us.soundcore.com/cdn/shop/articles/20220818-210015_2ddbe14d-e2c9-4a79-8d34-1046bd45479b_1040x.jpg?v=1663815360"
@@ -81,6 +119,28 @@ function Home() {
         <Link to="/earbuds">
           <button>Buy Now!</button>
         </Link>
+      </section>  */}
+      <section className="speaker-box">
+        <div className="speaker-child">
+          <img src={speaker1} alt="speaker-1" />
+          <h3>$1,999.99</h3>
+        </div>
+        <div className="speaker-child">
+          <img src={speaker2} alt="" />
+          <h3>$2,399.99</h3>
+        </div>
+        <div className="speaker-child">
+          <img src={speaker3} alt="" />
+          <h3>$999.99</h3>
+        </div>
+        <div className="speaker-child">
+          <img src={speaker4} alt="" />
+          <h3>$3,499.99</h3>
+        </div>
+        <div className="speaker-child">
+          <img src={speaker5} alt="" />
+          <h3>$7.99</h3>
+        </div>
       </section>
     </div>
   );
