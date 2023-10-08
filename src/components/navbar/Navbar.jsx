@@ -11,57 +11,59 @@ function Nav() {
   const [logout] = useLogoutMutation();
   const user = useSelector((state) => state.auth.credentials.user) || "";
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const handleLinkClick = () => {
+    setMenuOpen(false); // Close the menu when a link is clicked
+  };
   return (
     <nav>
-      <Link to="/" className="title">
-        RadShak
-      </Link>
-      <div className="menu" onClick={() => setMenuOpen(!menuOpen)}>
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <ul className={menuOpen ? "open" : ""}>
-        <li>
-          <Link to={"/headphones"}>HeadPhones</Link>
-        </li>
-        <li>
-          <Link to={"/earbuds"}>EarBuds</Link>
-        </li>
-        <li>
-          <Link to={"/speakers"}>Speaker</Link>
-        </li>
-        <li>
-          <Link to={"/"}>
-            <AiFillHome />
-          </Link>
-        </li>
-        <li>
-          <Link to={"/cart"}>
-            <FiShoppingCart />
-          </Link>
-        </li>
-        <li>
-          {user.userId && (
-            <Link to={"/User"}>
-              <CgProfile />
-            </Link>
-          )}
-        </li>
-        <li>{user.userId && <Link to={"/admin"}>Admin</Link>}</li>
-        {!user.userId && (
-          <li>
-            <Link to={"/login"}>Login</Link>
-          </li>
-        )}
+    <Link to="/" className="title">
+      RadShak
+    </Link>
+    <div className="menu" onClick={() => setMenuOpen(!menuOpen)}>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <ul className={menuOpen ? "open" : ""}>
+      <li onClick={handleLinkClick}>
+        <Link to={"/headphones"}>HeadPhones</Link>
+      </li>
+      <li onClick={handleLinkClick}>
+        <Link to={"/earbuds"}>EarBuds</Link>
+      </li>
+      <li onClick={handleLinkClick}>
+        <Link to={"/speakers"}>Speaker</Link>
+      </li>
+      <li onClick={handleLinkClick}>
+        <Link to={"/"}>
+          <AiFillHome />
+        </Link>
+      </li>
+      <li onClick={handleLinkClick}>
+        <Link to={"/cart"}>
+          <FiShoppingCart />
+        </Link>
+      </li>
+      <li onClick={handleLinkClick}>
         {user.userId && (
-          <li>
-            <button onClick={logout}>Logout</button>
-          </li>
+          <Link to={"/User"}>
+            <CgProfile />
+          </Link>
         )}
-      </ul>
-    </nav>
-  );
+      </li>
+      <li onClick={handleLinkClick}>{user.userId && <Link to={"/admin"}>Admin</Link>}</li>
+      {!user.userId && (
+        <li onClick={handleLinkClick}>
+          <Link to={"/login"}>Login</Link>
+        </li>
+      )}
+      {user.userId && (
+        <li onClick={handleLinkClick}>
+          <button onClick={logout}>Logout</button>
+        </li>
+      )}
+    </ul>
+  </nav>
+);
 }
 export default Nav;
