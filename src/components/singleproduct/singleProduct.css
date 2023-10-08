@@ -13,6 +13,8 @@
   background-color: transparent;
   color: black;
   font-size: 24px;
+  font: bold;
+  border: none;
 }
 
 .arrow:hover {

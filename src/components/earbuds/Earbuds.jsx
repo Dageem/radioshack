@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useGetProductsByCategoryQuery } from "../../reducers/api";
 import "./earbuds.css";
 import { Link } from "react-router-dom";
@@ -61,7 +61,7 @@ function Headphones() {
 
   return (
     <section className="products">
-      <h2 className="products__head">Earbuds</h2>
+      <h2 className="products__head">EarBuds</h2>
       <div className="products__container">
         <div className="sort-container">
           <select
@@ -94,11 +94,11 @@ function Headphones() {
         </ul>
       </div>
       <div className="pagination">
-        <button onClick={handlePrevPage} disabled={currentPage === 1}>
+        <button className="button__prev" onClick={handlePrevPage} disabled={currentPage === 1}>
           Previous
         </button>
         <span>Page {currentPage} of {totalPages}</span>
-        <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+        <button className="button__next" onClick={handleNextPage} disabled={currentPage === totalPages}>
           Next
         </button>
       </div>
