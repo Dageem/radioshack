@@ -15,21 +15,19 @@ function Cart() {
 
   const reduxCart = useSelector((state) => state.cart);
 
-  // Local cart state to keep it in sync with the Redux store
   const [localCart, setLocalCart] = useState(reduxCart);
-  // API cart state to keep it in sync with the API response
   const [apiCartState, setApiCartState] = useState(apiCart);
+  
 
   useEffect(() => {
-    // Update the local cart whenever the Redux cart changes
     setLocalCart(reduxCart);
   }, [reduxCart]);
 
   useEffect(() => {
-    // Update the API cart whenever the API response changes
-    setApiCartState(apiCart); // Update apiCartState when apiCart changes
-  }, [apiCart]);
-console.log(apiCart)
+      setApiCartState(apiCart);
+  },[apiCart]);
+
+  
   const order = userToken ? apiCart?.cartItems : localCart || [];
 
   const handleRemoveItem = async (itemId) => {
@@ -133,4 +131,3 @@ console.log(apiCart)
 }
 
 export default Cart;
-

@@ -6,7 +6,6 @@ export const api = createApi({
     baseUrl: "http://localhost:8081",
     prepareHeaders: (headers, { getState }) => {
       const credentials = window.sessionStorage.getItem("credentials");
-      console.log(credentials)
       const parsedCredentials = JSON.parse(credentials||"{}");
       const token = parsedCredentials.token;
       if (token) {
@@ -97,6 +96,10 @@ export const api = createApi({
     }),
   }),
 });
+
+
+
+
 
 export const {
   useCreateProductMutation,

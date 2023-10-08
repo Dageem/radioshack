@@ -4,7 +4,6 @@ import { api } from "./api";
 const getInitialCart = () => {
   try {
     const storedCart = localStorage.getItem("cart");
-    console.log(storedCart);
     return storedCart ? JSON.parse(storedCart) : [];
   } catch (error) {
     console.error("Error parsing cart from local storage", error);
@@ -29,7 +28,7 @@ const cartSlice = createSlice({
       const updatedCart = state.filter((item) => item.id !== action.payload);
       localStorage.setItem("cart", JSON.stringify(updatedCart));
       state.splice(0, state.length, ...updatedCart); // Update the state directly
-    },    
+    },
   },
   extraReducers: (builder) => {
     builder.addMatcher(
@@ -53,6 +52,18 @@ const cartSlice = createSlice({
           localStorage.setItem("cart", JSON.stringify(updatedCart));
           return updatedCart;
         }
+      }
+    );
+    builder.addMatcher(
+      api.endpoints.getOrder.matchFulfilled,
+      (state, { payload }) => {
+        return payload;
+      }
+    );
+    builder.addMatcher(
+      api.endpoints.getCartItems.matchFulfilled,
+      (state, { payload }) => {
+        return payload;
       }
     );
   },
