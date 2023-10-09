@@ -27,33 +27,41 @@ const cartSlice = createSlice({
     removeFromCartLocal: (state, action) => {
       const updatedCart = state.filter((item) => item.id !== action.payload);
       localStorage.setItem("cart", JSON.stringify(updatedCart));
-      state.splice(0, state.length, ...updatedCart); // Update the state directly
+      state.splice(0, state.length, ...updatedCart);
     },
   },
   extraReducers: (builder) => {
-    builder.addMatcher(
-      api.endpoints.addCartItem.matchFulfilled,
-      (state, action) => {
-        const userToken = window.sessionStorage.getItem("credentials");
-        if (!userToken) {
-          state.push(action.payload);
-          localStorage.setItem("cart", JSON.stringify(state));
+    builder.addMatcher(api.endpoints.addCartItem.matchFulfilled, async (state, action) => {
+      const userToken = window.sessionStorage.getItem("credentials");
+      if (userToken) {
+        try {
+          const response = await api.addCartItem(action.payload);
+          const updatedCartState = response.data;
+          return updatedCartState;
+        } catch (error) {
         }
+      } else {
+        state.push(action.payload);
+        localStorage.setItem("cart", JSON.stringify(state));
       }
-    );
-    builder.addMatcher(
-      api.endpoints.deleteCartItem.matchFulfilled,
-      (state, action) => {
-        const userToken = window.sessionStorage.getItem("credentials");
-        if (!userToken) {
-          const updatedCart = state.filter(
-            (item) => item.id !== action.payload
-          );
-          localStorage.setItem("cart", JSON.stringify(updatedCart));
-          return updatedCart;
+    });
+    
+    builder.addMatcher(api.endpoints.deleteCartItem.matchFulfilled, async (state, action) => {
+      const userToken = window.sessionStorage.getItem("credentials");
+      if (userToken) {
+        try {
+          const response = await api.deleteCartItem(action.payload);
+          const updatedCartState = response.data;
+          return updatedCartState;
+        } catch (error) {
         }
+      } else {
+        const updatedCart = state.filter((item) => item.id !== action.payload);
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+        return updatedCart;
       }
-    );
+    });
+    
     builder.addMatcher(
       api.endpoints.getOrder.matchFulfilled,
       (state, { payload }) => {
