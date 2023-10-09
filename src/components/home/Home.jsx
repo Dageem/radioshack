@@ -103,23 +103,6 @@ function Home() {
           </div>
         </section>
       </div>
-      {/* <section className="earbuds">
-        <h2>Sound Focus</h2>
-        <img
-          src="https://us.soundcore.com/cdn/shop/articles/20220818-210015_2ddbe14d-e2c9-4a79-8d34-1046bd45479b_1040x.jpg?v=1663815360"
-          alt="earbuds-lady"
-        />
-        <h3>
-          Introducing our newest Sound Focus noise cancelling technology for our
-          earbuds. Say goodbye to distractions and hello to crystal clear sound.
-          Immerse yourself in your music with unmatched precision and comfort
-          and come see why this is the new standard for audio experience. It's
-          time to hear the world differently.
-        </h3>
-        <Link to="/earbuds">
-          <button>Buy Now!</button>
-        </Link>
-      </section>  */}
       <section className="speaker-box">
         <div className="speaker-child">
           <img src={speaker1} alt="speaker-1" />
