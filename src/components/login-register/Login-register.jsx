@@ -64,12 +64,14 @@ const LoginRegister = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <br />
+          <div className="button-container">
           <button className="butt" onClick={handleRegister}>
             Register
           </button>
           <button className="butt" onClick={handleLogin}>
             Login
           </button>
+          </div>
         </section>
         <div>
           {successMessage && (
