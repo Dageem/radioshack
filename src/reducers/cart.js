@@ -36,8 +36,8 @@ const cartSlice = createSlice({
       if (userToken) {
         try {
           const response = await api.addCartItem(action.payload);
-          const updatedCartState = response.data;
-          return updatedCartState;
+          const apiCartState = response.data;
+          return apiCartState;
         } catch (error) {
         }
       } else {
@@ -51,8 +51,8 @@ const cartSlice = createSlice({
       if (userToken) {
         try {
           const response = await api.deleteCartItem(action.payload);
-          const updatedCartState = response.data;
-          return updatedCartState;
+          const apiCartState = response.data;
+          return apiCartState;
         } catch (error) {
         }
       } else {
