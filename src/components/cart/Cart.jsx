@@ -15,19 +15,34 @@ function Cart() {
 
   const reduxCart = useSelector((state) => state.cart);
 
+  // Local cart state to keep it in sync with the Redux store
   const [localCart, setLocalCart] = useState(reduxCart);
+  // API cart state to keep it in sync with the API response
   const [apiCartState, setApiCartState] = useState(apiCart);
-  
 
   useEffect(() => {
+    // Update the local cart whenever the Redux cart changes
     setLocalCart(reduxCart);
   }, [reduxCart]);
 
   useEffect(() => {
-      setApiCartState(apiCart);
-  },[apiCart]);
+    // Update the API cart whenever the API response changes
+    setApiCartState(apiCart); // Update apiCartState when apiCart changes
+  }, [apiCart]);
 
-  
+const [loadingNewData, setLoadingNewData] = useState(false);
+
+  const handleLoadNewData = async () => {
+    try {
+      setLoadingNewData(true);
+      // Simulate loading new data (you can replace this with your actual API call)
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      setLoadingNewData(false);
+    } catch (error) {
+      console.error("Error loading new data:", error);
+      setLoadingNewData(false);
+    }
+  };
   const order = userToken ? apiCart?.cartItems : localCart || [];
 
   const handleRemoveItem = async (itemId) => {
@@ -131,3 +146,4 @@ function Cart() {
 }
 
 export default Cart;
+
