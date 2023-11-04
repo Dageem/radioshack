@@ -16,54 +16,65 @@ function Nav() {
   };
   return (
     <nav>
-    <Link to="/" className="title">
-      RadShak
-    </Link>
-    <div className="menu" onClick={() => setMenuOpen(!menuOpen)}>
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-    <ul className={menuOpen ? "open" : ""}>
-      <li onClick={handleLinkClick}>
-        <Link to={"/headphones"}>HeadPhones</Link>
-      </li>
-      <li onClick={handleLinkClick}>
-        <Link to={"/earbuds"}>EarBuds</Link>
-      </li>
-      <li onClick={handleLinkClick}>
-        <Link to={"/speakers"}>Speaker</Link>
-      </li>
-      <li onClick={handleLinkClick}>
-        <Link to={"/"}>
-          <AiFillHome />
-        </Link>
-      </li>
-      <li onClick={handleLinkClick}>
-        <Link to={"/cart"}>
-          <FiShoppingCart />
-        </Link>
-      </li>
-      <li onClick={handleLinkClick}>
-        {user.userId && (
-          <Link to={"/User"}>
-            <CgProfile />
-          </Link>
+      <Link to="/" className="title">
+        RadShak
+      </Link>
+      <div className="menu" onClick={() => setMenuOpen(!menuOpen)}>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul className={menuOpen ? "open" : ""}>
+        <li onClick={handleLinkClick}>
+          <Link to={"/headphones"}>HeadPhones</Link>
+        </li>
+        <li onClick={handleLinkClick}>
+          <Link to={"/earbuds"}>EarBuds</Link>
+        </li>
+        <li onClick={handleLinkClick}>
+          <Link to={"/speakers"}>Speakers</Link>
+        </li>
+        <li onClick={handleLinkClick}>
+          <Link to={"/speakers"}>Microphones</Link>
+        </li>
+        <li onClick={handleLinkClick}>
+          <Link to={"/speakers"}>Studio</Link>
+        </li>
+        <li onClick={handleLinkClick}>
+          <Link to={"/speakers"}>Soundboards</Link>
+        </li>
+        <li onClick={handleLinkClick}>
+          {user.userId && <Link to={"/admin"}>Admin</Link>}
+        </li>
+        {!user.userId && (
+          <li onClick={handleLinkClick}>
+            <Link to={"/login"}>Login</Link>
+          </li>
         )}
-      </li>
-      <li onClick={handleLinkClick}>{user.userId && <Link to={"/admin"}>Admin</Link>}</li>
-      {!user.userId && (
+        {user.userId && (
+          <li onClick={handleLinkClick}>
+            <button onClick={logout}>Logout</button>
+          </li>
+        )}
         <li onClick={handleLinkClick}>
-          <Link to={"/login"}>Login</Link>
+          <Link to={"/"}>
+            <AiFillHome />
+          </Link>
         </li>
-      )}
-      {user.userId && (
         <li onClick={handleLinkClick}>
-          <button onClick={logout}>Logout</button>
+          {user.userId && (
+            <Link to={"/User"}>
+              <CgProfile />
+            </Link>
+          )}
         </li>
-      )}
-    </ul>
-  </nav>
-);
+        <li onClick={handleLinkClick}>
+          <Link to={"/cart"}>
+            <FiShoppingCart />
+          </Link>
+        </li>
+      </ul>
+    </nav>
+  );
 }
 export default Nav;

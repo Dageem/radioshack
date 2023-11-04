@@ -1,11 +1,10 @@
 .footer {
-    background-color: #315b3a;
+    background-color: black;
     color: white;
     padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-top:2rem;
 }
 
 .footer__section {

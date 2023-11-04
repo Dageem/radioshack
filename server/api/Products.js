@@ -11,6 +11,24 @@ router.get("/", async (req, res, next) => {
     next(err);
   }
 });
+router.get("/recent", async (req, res, next) => {
+  try {
+    const recentProducts = await prisma.product.findMany({
+      take: 5,
+      orderBy: {
+        id: "desc",
+      },
+      include: {
+        category: true,
+      },
+    });
+    res.send(recentProducts);
+  } catch (err) {
+    next(err);
+  }
+});
+
+
 router.get("/:id", async (req, res, next) => {
   try {
     const product = await prisma.product.findUnique({
